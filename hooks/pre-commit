@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+echo "Running tests & style checks..."
+python -m pytest >/dev/null
+if [ $? -ne 0 ]; then
+  echo "Tests failed. Commit aborted."
+  exit 1
+fi
+
+black --check . >/dev/null
+if [ $? -ne 0 ]; then
+  echo "Code not formatted. Run 'black .' and retry."
+  exit 1
+fi
+
+echo "All checks passed."
