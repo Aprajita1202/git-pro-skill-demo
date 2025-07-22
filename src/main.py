@@ -3,9 +3,11 @@ from datetime import datetime
 from .storage import load_tasks, save_tasks
 from .models import Task
 
+
 @click.group()
 def cli():
     """Simple CLI To-Do App"""
+
 
 @cli.command()
 @click.argument("text")
@@ -16,6 +18,7 @@ def add(text):
     save_tasks(tasks)
     click.echo(f"Added task #{new_id}: {text}")
 
+
 @cli.command()
 def list():
     tasks = load_tasks()
@@ -25,6 +28,7 @@ def list():
     for t in tasks:
         status = "✔" if t.done else "✗"
         click.echo(f"{t.id:3} [{status}] {t.text} ({t.created_at:%Y-%m-%d %H:%M})")
+
 
 @cli.command()
 @click.argument("task_id", type=int)
@@ -37,6 +41,7 @@ def done(task_id):
             click.echo(f"Marked task #{task_id} as done.")
             return
     click.echo("Task not found.")
+
 
 if __name__ == "__main__":
     cli()
